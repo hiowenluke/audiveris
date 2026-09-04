@@ -133,10 +133,13 @@ public class BookPdfOutput
                 g2.setColor(Color.BLACK);
 
                 // Sheet painting
-                painter.paint(stub.getSheet(), g2);
-
-                // This is the end...
-                g2.dispose();
+                try {
+                    painter.paint(stub.getSheet(), g2);
+                } finally {
+                    // PdfGraphics2D must always balance its saved PDF graphics state, including
+                    // when a painter fails part-way through a sheet.
+                    g2.dispose();
+                }
                 printedIds.add(stub.getNumber());
             }
 

@@ -170,12 +170,6 @@ public abstract class SheetPainter
 
     private static final Logger logger = LoggerFactory.getLogger(SheetPainter.class);
 
-    private static final ApplicationContext applicationContext = Application.getInstance()
-            .getContext();
-
-    private static final ResourceMap resources = applicationContext.getResourceMap(
-            SheetPainter.class);
-
     /** A transformation to half scale. (used for slot time annotation) */
     protected static final AffineTransform halfAT = AffineTransform.getScaleInstance(0.5, 0.5);
 
@@ -604,6 +598,8 @@ public abstract class SheetPainter
         }
 
         // Resource injection
+        final ApplicationContext applicationContext = Application.getInstance().getContext();
+        final ResourceMap resources = applicationContext.getResourceMap(SheetPainter.class);
         resources.injectComponents(panel);
 
         return panel;
